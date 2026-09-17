@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Add Student - StudentMS{% endblock %}
+{% block content %}
+<h1 class="mb-4">Add Student</h1>
+<form method="post" class="card shadow-sm"><div class="card-body"><div class="row g-3">
+{% for field, label, type in [('roll_number','Roll Number','text'),('name','Full Name','text'),('email','Email','email'),('phone','Phone','text'),('course','Course','text'),('semester','Semester','number'),('city','City','text')] %}
+<div class="col-md-6"><label class="form-label">{{ label }}{% if field in ['roll_number','name','email','course','semester'] %} *{% endif %}</label><input class="form-control" type="{{ type }}" name="{{ field }}" value="{{ student.get(field, '') if student is mapping else getattr(student, field, '') }}" {% if field=='semester' %}min="1" max="12"{% endif %} {% if field in ['roll_number','name','email','course','semester'] %}required{% endif %}></div>
+{% endfor %}
+</div><div class="mt-4"><button class="btn btn-primary">Save Student</button> <a class="btn btn-secondary" href="{{ url_for('students.list_students') }}">Cancel</a></div></div></form>
+{% endblock %}
